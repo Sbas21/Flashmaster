@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DataAccessLayer {
 
-    private static final String DATA_FOLDER = "dev-01-0.2/src/main/data";
+    private static final String DATA_FOLDER = "dev-01-0.2/data";
     private static final String FILE_NAME = "decks.csv";
     private static final Path FILE_PATH = Paths.get(DATA_FOLDER, FILE_NAME);
 
