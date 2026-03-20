@@ -31,7 +31,7 @@ public class DataAccessLayer {
 
                 // Write header
                 try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
-                    writer.write("Unique ID|Deck name|Description");
+                    writer.write("Deck ID|Deck Name|Description");
                     writer.newLine();
                 }
 
@@ -94,7 +94,7 @@ public class DataAccessLayer {
                 StandardOpenOption.TRUNCATE_EXISTING,
                 StandardOpenOption.WRITE)) {
 
-            writer.write("Unique ID|Deck name|Description");
+            writer.write("Deck ID|Deck Name|Description");
             writer.newLine();
 
         } catch (IOException e) {
