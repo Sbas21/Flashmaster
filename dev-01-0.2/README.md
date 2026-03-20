@@ -1,0 +1,18 @@
+# Name of application: FlashMaster
+
+# Who did What
+
+# Version 0.2
+1. Sebastian Lim: Developed Define Deck
+2. Shiva Anne: Designed Homepage
+3. Isabelle Li: Updated README, Final Overview
+
+# Technical-Spec
+1. Sebastian Lim: Designed UML class diagram
+2. Shiva Anne: Final Overview
+3. Isabelle Li: Designed UML sequence diagram
+
+# Functional-Spec
+1. Sebastian Lim: Completed Part1 and Part 2
+2. Shiva Anne: Designed Mockups
+3. Isabelle Li: Created use cases
