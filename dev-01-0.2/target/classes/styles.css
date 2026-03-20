@@ -1,0 +1,385 @@
+/*
+ * FlashMaster FX — JavaFX Stylesheet
+ * Translated from Tailwind CSS / shadcn design tokens.
+ *
+ * Color Palette (from React CSS variables):
+ *   background:       #F8F9FB  (hsl 210 20% 98%)
+ *   foreground:        #0F172A  (hsl 222 47% 11%)
+ *   card:              #FFFFFF
+ *   primary:           #6366F1  (hsl 239 84% 67%)
+ *   primary-foreground:#FFFFFF
+ *   muted-foreground:  #6B7280  (hsl 220 9% 46%)
+ *   border:            #E2E5EB  (hsl 220 13% 91%)
+ *   sidebar-accent:    #EBF0FF  (hsl 230 94% 95%)
+ *   sidebar-accent-fg: #6366F1
+ *   header-from:       #4266E0  (hsl 230 80% 60%)
+ *   header-to:         #7C3AED  (hsl 250 80% 55%)
+ */
+
+/* ============================================================
+   ROOT / BACKGROUND
+   ============================================================ */
+.app-root {
+    -fx-background-color: #F8F9FB;
+}
+
+/* ============================================================
+   MAIN CARD (the white container)
+   ============================================================ */
+.main-card {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+}
+
+/* ============================================================
+   APP HEADER
+   ============================================================ */
+
+/* Gradient title banner */
+.header-gradient {
+    -fx-background-color: linear-gradient(to right, #4266E0, #7C3AED);
+    -fx-background-radius: 8 8 0 0;
+}
+
+.header-title {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", "Plus Jakarta Sans", sans-serif;
+}
+
+/* Menu bar strip beneath gradient */
+.header-menu-bar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 0 0 1 0;
+}
+
+.menu-item {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-cursor: hand;
+    -fx-padding: 4 0 4 0;
+}
+
+.menu-item-hover {
+    -fx-text-fill: #0F172A;
+}
+
+/* ============================================================
+   APP SIDEBAR
+   ============================================================ */
+.app-sidebar {
+    -fx-background-color: transparent;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: #EBF0FF;
+}
+
+.sidebar-btn-active .sidebar-icon,
+.sidebar-btn-active .sidebar-label {
+    -fx-text-fill: #6366F1;
+}
+
+.sidebar-btn-hover {
+    -fx-background-color: #F4F4F5;
+}
+
+.sidebar-icon {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 14px;
+    -fx-min-width: 16;
+}
+
+.sidebar-label {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+.sidebar-btn-hover .sidebar-label {
+    -fx-text-fill: #0F172A;
+}
+
+/* ============================================================
+   DECKS TABLE
+   ============================================================ */
+.decks-table-container {
+    /* No special background, inherits card */
+}
+
+.section-title {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-font-family: "Segoe UI", "Plus Jakarta Sans", sans-serif;
+}
+
+.decks-table {
+    -fx-background-color: transparent;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.decks-table .column-header-background {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.decks-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #E2E5EB transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 16 10 16;
+}
+
+.decks-table .column-header .label {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+.decks-table .table-row-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent transparent #F0F0F0 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 4 0 4 0;
+}
+
+.decks-table .table-row-cell:hover {
+    -fx-background-color: #FAFBFC;
+}
+
+.decks-table .table-cell {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-padding: 8 16 8 16;
+}
+
+/* Empty table rows */
+.decks-table .table-row-cell:empty {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent;
+}
+
+/* Remove default focus ring on table */
+.decks-table:focused {
+    -fx-background-color: transparent;
+}
+
+/* ============================================================
+   SUMMARY STATS CARD
+   ============================================================ */
+.stats-card {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.stats-title {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-font-family: "Segoe UI", "Plus Jakarta Sans", sans-serif;
+}
+
+.stat-label {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+.stat-value {
+    -fx-text-fill: #6366F1;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", "Plus Jakarta Sans", sans-serif;
+}
+
+/* ============================================================
+   SEARCH BAR (FOOTER)
+   ============================================================ */
+.search-bar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1 0 0 0;
+    -fx-background-radius: 0 0 8 8;
+}
+
+.search-input {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-prompt-text-fill: #9CA3AF;
+}
+
+.search-input:focused {
+    -fx-border-color: #6366F1;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.2), 4, 0, 0, 0);
+}
+
+.search-button {
+    -fx-background-color: #6366F1;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-padding: 8 20 8 20;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.search-button:hover {
+    -fx-background-color: #5558E6;
+}
+
+/* ============================================================
+   CONTENT PAGES / FORMS
+   ============================================================ */
+.content-page {
+    -fx-background-color: transparent;
+}
+
+.primary-button {
+    -fx-background-color: #6366F1;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-padding: 8 18 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #5558E6;
+}
+
+.secondary-button {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-padding: 8 14 8 14;
+    -fx-background-radius: 6;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #EAECEF;
+}
+
+.form-label {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+.form-input {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-prompt-text-fill: #9CA3AF;
+}
+
+.form-input:focused {
+    -fx-border-color: #6366F1;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.2), 4, 0, 0, 0);
+}
+
+.form-textarea {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-prompt-text-fill: #9CA3AF;
+}
+
+.form-textarea:focused {
+    -fx-border-color: #6366F1;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.2), 4, 0, 0, 0);
+}
+
+.form-error {
+    -fx-text-fill: #B91C1C;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+.input-error {
+    -fx-border-color: #EF4444;
+}
+
+.search-button:pressed {
+    -fx-background-color: #4F46E5;
+}
+
+/* ============================================================
+   SCROLLBAR STYLING (make it subtle)
+   ============================================================ */
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #D1D5DB;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow,
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
