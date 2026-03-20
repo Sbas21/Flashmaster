@@ -15,6 +15,8 @@ public class DataAccessLayer {
     private static final String DATA_FOLDER = "data";
     private static final String FILE_NAME = "decks.csv";
     private static final Path FILE_PATH = Paths.get(DATA_FOLDER, FILE_NAME);
+    private static final String HEADER = "Deck ID|Deck Name|Description";
+
 
     public DataAccessLayer() {
         initializeFile();
@@ -30,13 +32,9 @@ public class DataAccessLayer {
 
             if (!Files.exists(FILE_PATH)) {
                 Files.createFile(FILE_PATH);
-
-                try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
-                    writer.write("Deck ID|Deck Name|Description");
-                    writer.newLine();
-                }
-
                 System.out.println("File created.");
+                ensureHeaderExists();
+
             } else {
                 System.out.println("File already exists.");
             }
@@ -46,8 +44,51 @@ public class DataAccessLayer {
             throw new RuntimeException("Could not initialize data file.", e);
         }
     }
+    private void ensureHeaderExists() {
+        try {
+            List<String> lines = Files.readAllLines(FILE_PATH);
+            // file is empty
+            if (lines.isEmpty()) {
+                writeHeaderOnly();
+                return;
+            }
+
+            String firstLine = lines.get(0).trim();
+            // header is missing or file is empty
+            if (!firstLine.equalsIgnoreCase(HEADER)) {
+                List<String> updatedLines = new ArrayList<>();
+                updatedLines.add(HEADER);
+
+                for (String line : lines) {
+                    if (!line.trim().isEmpty()) {
+                        updatedLines.add(line);
+                    }
+                }
+
+                Files.write(FILE_PATH, updatedLines, StandardOpenOption.TRUNCATE_EXISTING);
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException("Could not verify header.", e);
+        }
+    }
+    private void writeHeaderOnly() {
+        try (BufferedWriter writer = Files.newBufferedWriter(
+                FILE_PATH,
+                StandardOpenOption.TRUNCATE_EXISTING,
+                StandardOpenOption.WRITE)) {
+
+            writer.write(HEADER);
+            writer.newLine();
+
+        } catch (IOException e) {
+            throw new RuntimeException("Could not write header.", e);
+        }
+    }
 
     public void addDeckFile(DeckFile deckFile) {
+        ensureHeaderExists();
+
         try (BufferedWriter writer = Files.newBufferedWriter(
                 FILE_PATH,
                 StandardOpenOption.CREATE,
@@ -64,6 +105,8 @@ public class DataAccessLayer {
     }
 
     public List<DeckFile> getAllDeckFiles() {
+        ensureHeaderExists();
+
         List<DeckFile> deckFiles = new ArrayList<>();
 
         try {
@@ -96,7 +139,7 @@ public class DataAccessLayer {
                 StandardOpenOption.TRUNCATE_EXISTING,
                 StandardOpenOption.WRITE)) {
 
-            writer.write("Deck ID|Deck Name|Description");
+            writer.write(HEADER);
             writer.newLine();
 
         } catch (IOException e) {
