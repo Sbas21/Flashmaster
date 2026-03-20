@@ -5,11 +5,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * Data model for a flashcard deck, used by the DecksTable TableView.
- */
 public class Deck {
 
+    // JavaFX properties for TableView binding
     private final StringProperty name;
     private final StringProperty description;
     private final IntegerProperty totalFlashcards;
@@ -20,7 +18,7 @@ public class Deck {
         this.totalFlashcards = new SimpleIntegerProperty(totalFlashcards);
     }
 
-    // --- Name ---
+    // Name
     public StringProperty nameProperty() {
         return name;
     }
@@ -33,7 +31,7 @@ public class Deck {
         this.name.set(name);
     }
 
-    // --- Description ---
+    //  Description
     public StringProperty descriptionProperty() {
         return description;
     }
@@ -46,7 +44,7 @@ public class Deck {
         this.description.set(description);
     }
 
-    // --- Total Flashcards ---
+    // Total Flashcards
     public IntegerProperty totalFlashcardsProperty() {
         return totalFlashcards;
     }

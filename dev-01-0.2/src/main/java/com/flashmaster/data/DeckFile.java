@@ -24,10 +24,12 @@ public class DeckFile {
     }
 
     public String toFileString() {
+        // CSV row format
         return deckID + "|" + deckName + "|" + description;
     }
 
     public static DeckFile fromFileString(String line) {
+        // Parse CSV row
         String[] parts = line.split("\\|", -1);
 
         if (parts.length != 3) {

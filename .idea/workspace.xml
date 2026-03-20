@@ -4,22 +4,74 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03fbf6d3-daae-462b-acbe-605d4f36afc3" name="Changes" comment="" />
+    <list default="true" id="03fbf6d3-daae-462b-acbe-605d4f36afc3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/MainLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/MainLayout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/AppHeader.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/AppHeader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/AppSidebar.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/AppSidebar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/DecksTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/DecksTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/DefineDeckView.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/DefineDeckView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/ManageDecksView.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/ManageDecksView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/SearchBar.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/SearchBar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/SummaryStats.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/components/SummaryStats.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/data/DataAccessLayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/data/DataAccessLayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/data/DataTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/data/DataTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/data/DeckFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/data/DeckFile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/model/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/com/flashmaster/model/Deck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/cs151/application/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/cs151/application/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-01-0.2/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/dev-01-0.2/target/classes/module-info.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="45" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Sbas21/Flashmaster.git&quot;,
+    &quot;accountId&quot;: &quot;95bd8ed2-7d1a-427d-ac65-0f15a74f8a39&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3BDk0f2ggEb3yWjyiI6kFY48sfw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Maven.Unnamed.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Global Libraries",
+    "last_opened_file_path": "/Users/sebastianlim/Downloads/Flashmaster",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "to.speed.mode.migration.done": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -33,7 +85,44 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="03fbf6d3-daae-462b-acbe-605d4f36afc3" name="Changes" comment="" />
+      <created>1774030806455</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1774030806455</updated>
+    </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

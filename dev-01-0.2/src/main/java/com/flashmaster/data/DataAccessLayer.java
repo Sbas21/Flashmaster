@@ -11,7 +11,8 @@ import java.util.List;
 
 public class DataAccessLayer {
 
-    private static final String DATA_FOLDER = "dev-01-0.2/data";
+    // CSV location
+    private static final String DATA_FOLDER = "data";
     private static final String FILE_NAME = "decks.csv";
     private static final Path FILE_PATH = Paths.get(DATA_FOLDER, FILE_NAME);
 
@@ -21,6 +22,7 @@ public class DataAccessLayer {
 
     private void initializeFile() {
         try {
+            // Create data folder + file if missing
             System.out.println("Creating folder at: " + Paths.get(DATA_FOLDER).toAbsolutePath());
             System.out.println("Creating file at: " + FILE_PATH.toAbsolutePath());
 
@@ -29,7 +31,6 @@ public class DataAccessLayer {
             if (!Files.exists(FILE_PATH)) {
                 Files.createFile(FILE_PATH);
 
-                // Write header
                 try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
                     writer.write("Deck ID|Deck Name|Description");
                     writer.newLine();
@@ -52,6 +53,7 @@ public class DataAccessLayer {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.APPEND)) {
 
+            // Append one row
             writer.write(deckFile.toFileString());
             writer.newLine();
 
@@ -71,7 +73,7 @@ public class DataAccessLayer {
 
             List<String> lines = Files.readAllLines(FILE_PATH);
 
-            // Skip header (index 0)
+            // Skip header row
             for (int i = 1; i < lines.size(); i++) {
                 String line = lines.get(i).trim();
 

@@ -4,12 +4,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-/**
- * Summary statistics card showing key metrics.
- * Mirrors the React SummaryStats component.
- */
 public class SummaryStats extends VBox {
 
+    // Static demo stats
     private static final String[][] STATS = {
         {"Total Decks", "2"},
         {"Total Flashcards", "37"},
@@ -23,13 +20,13 @@ public class SummaryStats extends VBox {
         setPrefWidth(220);
         setMinWidth(200);
 
-        // --- Title ---
+        //  Title
         Label title = new Label("Summary Statistics");
         title.getStyleClass().add("stats-title");
 
         getChildren().add(title);
 
-        // --- Stats ---
+        //  Stats
         for (String[] stat : STATS) {
             VBox statItem = new VBox(2);
 

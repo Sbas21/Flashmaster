@@ -1,15 +1,16 @@
 package com.flashmaster.components;
 
+import com.flashmaster.data.DataAccessLayer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-
-public class ManageDecksView extends VBox {
-    public ManageDecksView(Runnable onBack, Runnable onDefineDeck) {
+public class ListDecksView extends VBox {
+    public ListDecksView(DataAccessLayer dataAccessLayer, Runnable onBack) {
         getStyleClass().add("content-page");
         setAlignment(Pos.TOP_LEFT);
         setSpacing(16);
@@ -23,21 +24,20 @@ public class ManageDecksView extends VBox {
             }
         });
 
-        Label title = new Label("Manage Decks");
+        Label title = new Label("List Decks");
         title.getStyleClass().add("section-title");
 
-        Button defineDeckButton = new Button("Define Deck");
-        defineDeckButton.getStyleClass().add("primary-button");
-        defineDeckButton.setOnAction(event -> {
-            if (onDefineDeck != null) {
-                onDefineDeck.run();
-            }
-        });
-
-        // Header row with actions
-        HBox header = new HBox(12, backButton, title, defineDeckButton);
+        HBox header = new HBox(12, backButton, title);
         header.setAlignment(Pos.CENTER_LEFT);
 
-        getChildren().add(header);
+        // Table of stored decks
+        DecksTable decksTable = new DecksTable("All Decks");
+        VBox.setVgrow(decksTable, Priority.ALWAYS);
+        if (dataAccessLayer != null) {
+            // Load from CSV
+            decksTable.setDecks(dataAccessLayer.getAllDeckFiles());
+        }
+
+        getChildren().addAll(header, decksTable);
     }
 }

@@ -9,16 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-/**
- * Vertical sidebar navigation with icon + label buttons.
- * Mirrors the React AppSidebar component.
- */
 public class AppSidebar extends VBox {
 
-    // Using Unicode symbols as icon stand-ins (avoids external icon dependencies)
+    // Sidebar items (icon + label)
     private static final String[][] NAV_ITEMS = {
         {"⌂", "Home"},
         {"⚙", "Manage Decks"},
+        {"≡", "List Decks"},
     };
 
     private final List<HBox> navButtons = new ArrayList<>();
@@ -33,11 +30,12 @@ public class AppSidebar extends VBox {
         for (int i = 0; i < NAV_ITEMS.length; i++) {
             String icon = NAV_ITEMS[i][0];
             String label = NAV_ITEMS[i][1];
-            boolean isActive = (i == 0); // "Home" is the active item initially
+            boolean isActive = (i == 0);
 
             HBox navButton = createNavButton(icon, label, isActive);
             navButtons.add(navButton);
             
+            // Click to switch content
             navButton.setOnMouseClicked(e -> {
                 setActiveButton(navButton);
                 if (onItemSelected != null) {

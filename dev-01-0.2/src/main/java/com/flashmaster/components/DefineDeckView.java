@@ -1,5 +1,9 @@
 package com.flashmaster.components;
 
+import com.flashmaster.data.DataAccessLayer;
+import com.flashmaster.data.DeckFile;
+import java.util.Comparator;
+import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,11 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-/**
- * Define Deck page for creating a new deck.
- */
+
 public class DefineDeckView extends VBox {
-    public DefineDeckView(Runnable onBack) {
+    public DefineDeckView(DataAccessLayer dataAccessLayer, Runnable onBack) {
         getStyleClass().add("content-page");
         setAlignment(Pos.TOP_LEFT);
         setSpacing(16);
@@ -56,6 +58,7 @@ public class DefineDeckView extends VBox {
         Button createButton = new Button("Create Deck");
         createButton.getStyleClass().add("primary-button");
         createButton.setOnAction(event -> {
+            // Basic required check
             String deckName = nameField.getText() == null ? "" : nameField.getText().trim();
             if (deckName.isEmpty()) {
                 nameError.setText("Deck Name is required.");
@@ -67,9 +70,41 @@ public class DefineDeckView extends VBox {
                 return;
             }
 
+            if (dataAccessLayer != null) {
+                // Enforce unique name
+                List<DeckFile> existingDecks = dataAccessLayer.getAllDeckFiles();
+                boolean nameExists = existingDecks.stream()
+                    .anyMatch(deck -> deck.getDeckName() != null
+                        && deck.getDeckName().trim().equalsIgnoreCase(deckName));
+                if (nameExists) {
+                    nameError.setText("Deck Name must be unique.");
+                    nameError.setVisible(true);
+                    nameError.setManaged(true);
+                    if (!nameField.getStyleClass().contains("input-error")) {
+                        nameField.getStyleClass().add("input-error");
+                    }
+                    return;
+                }
+
+                int nextId = existingDecks.stream()
+                    .map(DeckFile::getDeckID)
+                    .max(Comparator.naturalOrder())
+                    .orElse(0) + 1;
+
+                String description = descriptionArea.getText() == null ? "" : descriptionArea.getText().trim();
+                DeckFile deckFile = new DeckFile(nextId, deckName, description);
+                // Save to CSV
+                dataAccessLayer.addDeckFile(deckFile);
+            }
+
             nameError.setVisible(false);
             nameError.setManaged(false);
             nameField.getStyleClass().remove("input-error");
+
+            // Go back after saving
+            if (onBack != null) {
+                onBack.run();
+            }
         });
 
         nameField.textProperty().addListener((obs, oldValue, newValue) -> {

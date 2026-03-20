@@ -6,10 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-/**
- * Application header with gradient title bar and horizontal menu bar.
- * Mirrors the React AppHeader component.
- */
+// Application header with gradient title bar and horizontal menu bar.
+
 public class AppHeader extends VBox {
 
     private static final String[] MENU_ITEMS = {"File", "Decks", "Flashcards", "Reports", "Help"};
@@ -17,7 +15,7 @@ public class AppHeader extends VBox {
     public AppHeader() {
         getStyleClass().add("app-header");
 
-        // --- Gradient Title Banner ---
+        // Title banner
         Label titleLabel = new Label("FlashMaster");
         titleLabel.getStyleClass().add("header-title");
 
@@ -26,12 +24,13 @@ public class AppHeader extends VBox {
         titleBar.setAlignment(Pos.CENTER_LEFT);
         titleBar.setPadding(new Insets(20, 32, 20, 32));
 
-        // --- Menu Bar ---
+        // Menu bar
         HBox menuBar = new HBox(24);
         menuBar.getStyleClass().add("header-menu-bar");
         menuBar.setAlignment(Pos.CENTER_LEFT);
         menuBar.setPadding(new Insets(8, 32, 8, 32));
 
+        // Menu items
         for (String item : MENU_ITEMS) {
             Label menuItem = new Label(item);
             menuItem.getStyleClass().add("menu-item");
