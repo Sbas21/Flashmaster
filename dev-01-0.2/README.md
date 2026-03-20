@@ -2,6 +2,11 @@
 
 # Who did What
 
+# Version 0.4
+1. Sebastian Lim: Developed Listing Deck Data
+2. Shiva Anne: Updated README, Final Overview
+3. Isabelle Li: Developed Storing Deck Data
+
 # Version 0.2
 1. Sebastian Lim: Developed Define Deck
 2. Shiva Anne: Designed Homepage
