@@ -60,8 +60,14 @@ public class MainLayout extends VBox {
             case "Manage Decks":
                 newContent = new ManageDecksView(this::navigateHome, this::openDefineDeck);
                 break;
+            case "Manage Flashcards":
+                newContent = new ManageFlashcardsView(this::navigateHome, this::openDefineFlashcards);
+                break;
             case "Define Deck":
                 newContent = new DefineDeckView(dataAccessLayer, this::navigateBackToManageDecks);
+                break;
+            case "Define Flashcards":
+                newContent = new DefineFlashcardsView(dataAccessLayer, this::navigateBackToManageFlashcards);
                 break;
             case "List Decks":
                 newContent = new ListDecksView(dataAccessLayer, this::navigateBackToManageDecks);
@@ -91,8 +97,17 @@ public class MainLayout extends VBox {
         showContent("Define Deck");
     }
 
+    private void openDefineFlashcards() {
+        showContent("Define Flashcards");
+    }
+
     private void navigateBackToManageDecks() {
         sidebar.setActiveByLabel("Manage Decks");
         showContent("Manage Decks");
+    }
+
+    private void navigateBackToManageFlashcards() {
+        sidebar.setActiveByLabel("Manage Flashcards");
+        showContent("Manage Flashcards");
     }
 }

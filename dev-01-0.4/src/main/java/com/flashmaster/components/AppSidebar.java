@@ -15,6 +15,7 @@ public class AppSidebar extends VBox {
     private static final String[][] NAV_ITEMS = {
         {"⌂", "Home"},
         {"⚙", "Manage Decks"},
+        {"✎", "Manage Flashcards"},
         {"≡", "List Decks"},
     };
 

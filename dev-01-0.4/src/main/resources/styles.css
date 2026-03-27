@@ -346,8 +346,46 @@
     -fx-font-family: "Segoe UI", "Inter", sans-serif;
 }
 
+.form-success {
+    -fx-text-fill: #166534;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
 .input-error {
     -fx-border-color: #EF4444;
+}
+
+.combo-box.form-input {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E5EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.combo-box.form-input .list-cell {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-background-color: #FFFFFF;
+}
+
+.combo-box.form-input .arrow-button {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 0 6 6 0;
+}
+
+.combo-box.form-input:focused {
+    -fx-border-color: #6366F1;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.2), 4, 0, 0, 0);
+}
+
+.combo-box.form-input.input-error,
+.combo-box.form-input.input-error:focused {
+    -fx-border-color: #EF4444;
+    -fx-effect: none;
 }
 
 .search-button:pressed {
