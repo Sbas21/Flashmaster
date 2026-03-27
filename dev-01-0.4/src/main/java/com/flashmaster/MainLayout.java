@@ -1,7 +1,18 @@
 package com.flashmaster;
 
-import com.flashmaster.components.*;
+import com.flashmaster.components.AppHeader;
+import com.flashmaster.components.AppSidebar;
+import com.flashmaster.components.DecksTable;
+import com.flashmaster.components.DefineDeckView;
+import com.flashmaster.components.DefineFlashcardsView;
+import com.flashmaster.components.ListDecksView;
+import com.flashmaster.components.ListFlashcardsView;
+import com.flashmaster.components.ManageDecksView;
+import com.flashmaster.components.ManageFlashcardsView;
+import com.flashmaster.components.SearchBar;
+import com.flashmaster.components.SummaryStats;
 import com.flashmaster.data.DataAccessLayer;
+
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -71,6 +82,9 @@ public class MainLayout extends VBox {
                 break;
             case "List Decks":
                 newContent = new ListDecksView(dataAccessLayer, this::navigateBackToManageDecks);
+                break;
+            case "List Flashcards":
+                newContent = new ListFlashcardsView(dataAccessLayer, this::navigateBackToManageFlashcards);
                 break;
             case "Home":
             default:

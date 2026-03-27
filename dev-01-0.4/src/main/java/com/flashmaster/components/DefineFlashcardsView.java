@@ -1,14 +1,16 @@
 package com.flashmaster.components;
 
-import com.flashmaster.data.DataAccessLayer;
-import com.flashmaster.data.DeckFile;
-import com.flashmaster.data.FlashcardFile;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import com.flashmaster.data.DataAccessLayer;
+import com.flashmaster.data.DeckFile;
+import com.flashmaster.data.FlashcardFile;
+
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

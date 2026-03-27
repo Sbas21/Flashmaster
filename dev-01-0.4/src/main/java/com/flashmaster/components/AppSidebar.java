@@ -1,13 +1,14 @@
 package com.flashmaster.components;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class AppSidebar extends VBox {
 
@@ -17,6 +18,7 @@ public class AppSidebar extends VBox {
         {"⚙", "Manage Decks"},
         {"✎", "Manage Flashcards"},
         {"≡", "List Decks"},
+        {"≡", "List Flashcards"},
     };
 
     private final List<HBox> navButtons = new ArrayList<>();
