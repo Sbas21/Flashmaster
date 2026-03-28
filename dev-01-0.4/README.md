@@ -1,6 +1,10 @@
 # Name of application: FlashMaster
 
-
+# Version 0.5
+Who did What:
+1. Sebastian Lim: Developed Define Flashcard Page
+2. Shiva Anne: Updated README, Final Overview
+3. Isabelle Li: Developed List Flashcard Data
 
 # Version 0.4
 Who did What:
