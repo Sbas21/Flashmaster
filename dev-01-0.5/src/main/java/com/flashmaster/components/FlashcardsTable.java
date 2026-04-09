@@ -44,7 +44,7 @@ public class FlashcardsTable extends VBox {
         TableColumn<FlashcardFile, String> frontTextCol = new TableColumn<>("Front Text");
         frontTextCol.setCellValueFactory(cell -> {
             FlashcardFile flashcard = cell.getValue();
-            String value = flashcard == null ? "" : flashcard.getFrontText();
+            String value = flashcard == null ? "" : firstLine(flashcard.getFrontText());
             return new SimpleStringProperty(value == null ? "" : value);
         });
         frontTextCol.setMinWidth(220);
@@ -52,7 +52,7 @@ public class FlashcardsTable extends VBox {
         TableColumn<FlashcardFile, String> backTextCol = new TableColumn<>("Back Text");
         backTextCol.setCellValueFactory(cell -> {
             FlashcardFile flashcard = cell.getValue();
-            String value = flashcard == null ? "" : flashcard.getBackText();
+            String value = flashcard == null ? "" : firstLine(flashcard.getBackText());
             return new SimpleStringProperty(value == null ? "" : value);
         });
         backTextCol.setMinWidth(220);
@@ -141,5 +141,17 @@ public class FlashcardsTable extends VBox {
 
         ObservableList<FlashcardFile> data = FXCollections.observableArrayList(sorted);
         table.setItems(data);
+    }
+
+    private static String firstLine(String value) {
+        if (value == null || value.isBlank()) {
+            return "";
+        }
+        String normalized = value.replace("\r\n", "\n").replace('\r', '\n');
+        int firstNewlineIndex = normalized.indexOf('\n');
+        if (firstNewlineIndex < 0) {
+            return normalized;
+        }
+        return normalized.substring(0, firstNewlineIndex);
     }
 }

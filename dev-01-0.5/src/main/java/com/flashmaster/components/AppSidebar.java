@@ -17,6 +17,7 @@ public class AppSidebar extends VBox {
         {"⌂", "Home"},
         {"⚙", "Manage Decks"},
         {"✎", "Manage Flashcards"},
+        {"⌕", "Search Flashcards"},
         {"≡", "List Decks"},
         {"≡", "List Flashcards"},
     };

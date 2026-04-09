@@ -9,7 +9,7 @@ import com.flashmaster.components.ListDecksView;
 import com.flashmaster.components.ListFlashcardsView;
 import com.flashmaster.components.ManageDecksView;
 import com.flashmaster.components.ManageFlashcardsView;
-import com.flashmaster.components.SearchBar;
+import com.flashmaster.components.SearchFlashcardsView;
 import com.flashmaster.components.SummaryStats;
 import com.flashmaster.data.DataAccessLayer;
 
@@ -52,10 +52,7 @@ public class MainLayout extends VBox {
         centerArea.getChildren().addAll(sidebar, contentArea);
         VBox.setVgrow(centerArea, Priority.ALWAYS);
 
-        // Bottom search bar
-        SearchBar searchBar = new SearchBar();
-
-        getChildren().addAll(header, centerArea, searchBar);
+        getChildren().addAll(header, centerArea);
     }
 
     private void handleSidebarSelection(String selection) {
@@ -73,6 +70,9 @@ public class MainLayout extends VBox {
                 break;
             case "Manage Flashcards":
                 newContent = new ManageFlashcardsView(this::navigateHome, this::openDefineFlashcards);
+                break;
+            case "Search Flashcards":
+                newContent = new SearchFlashcardsView(dataAccessLayer, this::navigateHome);
                 break;
             case "Define Deck":
                 newContent = new DefineDeckView(dataAccessLayer, this::navigateBackToManageDecks);
