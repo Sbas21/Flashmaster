@@ -1,5 +1,11 @@
 # Name of application: FlashMaster
 
+# Version 0.6
+Who did What:
+1. Sebastian Lim: Developed Search Flashcard page
+2. Shiva Anne: 
+3. Isabelle Li: 
+   
 # Version 0.5
 Who did What:
 1. Sebastian Lim: Developed Define Flashcard Page
