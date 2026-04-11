@@ -1,8 +1,8 @@
 package com.flashmaster.components;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.flashmaster.data.FlashcardFile;
 
@@ -21,6 +21,8 @@ public class FlashcardsTable extends VBox {
     private final TableView<FlashcardFile> table;
     private final TableColumn<FlashcardFile, LocalDate> creationDateCol;
 
+    private Consumer<FlashcardFile> onFlashcardSelected;
+
     public FlashcardsTable(String titleText) {
         getStyleClass().add("decks-table-container");
         setSpacing(16);
@@ -32,6 +34,12 @@ public class FlashcardsTable extends VBox {
         table.getStyleClass().add("decks-table");
         table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         table.setPlaceholder(new Label("No flashcards found."));
+
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (onFlashcardSelected != null) {
+                onFlashcardSelected.accept(newSelection);
+            }
+        });
 
         TableColumn<FlashcardFile, String> deckNameCol = new TableColumn<>("Deck Name");
         deckNameCol.setCellValueFactory(cell -> {
@@ -115,6 +123,20 @@ public class FlashcardsTable extends VBox {
 
         VBox.setVgrow(this, Priority.ALWAYS);
         getChildren().addAll(title, table);
+
+
+    }
+
+    public void setOnFlashcardSelected(Consumer<FlashcardFile> onFlashcardSelected) {
+        this.onFlashcardSelected = onFlashcardSelected;
+    }
+
+    public FlashcardFile getSelectedFlashcard() {
+        return table.getSelectionModel().getSelectedItem();
+    }
+    
+    public void clearSelection() {
+        table.getSelectionModel().clearSelection();
     }
 
     public void setFlashcards(List<FlashcardFile> flashcards) {

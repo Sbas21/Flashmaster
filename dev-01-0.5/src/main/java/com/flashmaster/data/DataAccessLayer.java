@@ -171,4 +171,59 @@ public class DataAccessLayer {
     public void clearFlashcardsFile() {
         writeHeaderOnly(FLASHCARDS_FILE_PATH, FLASHCARDS_HEADER);
     }
+
+    public boolean deleteFlashcard(FlashcardFile flashcard) {
+        if (flashcard == null) {
+            return false;
+        }
+    
+        ensureHeaderExists(FLASHCARDS_FILE_PATH, FLASHCARDS_HEADER);
+    
+        try {
+            if (!Files.exists(FLASHCARDS_FILE_PATH)) {
+                return false;
+            }
+    
+            List<String> lines = Files.readAllLines(FLASHCARDS_FILE_PATH);
+            if (lines.isEmpty()) {
+                return false;
+            }
+    
+            List<String> updatedLines = new ArrayList<>();
+            updatedLines.add(FLASHCARDS_HEADER);
+    
+            boolean deleted = false;
+            String targetLine = flashcard.toFileString();
+    
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i).trim();
+    
+                if (line.isEmpty()) {
+                    continue;
+                }
+    
+                if (!deleted && line.equals(targetLine)) {
+                    deleted = true;
+                    continue;
+                }
+    
+                updatedLines.add(line);
+            }
+    
+            if (deleted) {
+                Files.write(
+                        FLASHCARDS_FILE_PATH,
+                        updatedLines,
+                        StandardOpenOption.TRUNCATE_EXISTING,
+                        StandardOpenOption.WRITE
+                );
+            }
+    
+            return deleted;
+    
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
