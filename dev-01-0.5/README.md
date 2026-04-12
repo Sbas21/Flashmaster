@@ -3,7 +3,7 @@
 # Version 0.6
 Who did What:
 1. Sebastian Lim: Developed Search Flashcard page
-2. Shiva Anne: 
+2. Shiva Anne: Updated README and FINAL OVERVIEW
 3. Isabelle Li: 
    
 # Version 0.5
