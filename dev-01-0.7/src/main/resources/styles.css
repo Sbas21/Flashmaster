@@ -167,6 +167,11 @@
     -fx-background-color: #FAFBFC;
 }
 
+.decks-table .table-row-cell:selected,
+.decks-table .table-row-cell:selected:hover {
+    -fx-background-color: #EBF0FF;
+}
+
 .decks-table .table-cell {
     -fx-text-fill: #0F172A;
     -fx-font-size: 13px;

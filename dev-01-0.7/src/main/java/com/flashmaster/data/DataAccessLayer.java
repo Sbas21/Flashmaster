@@ -164,6 +164,140 @@ public class DataAccessLayer {
         return flashcardFiles;
     }
 
+    public boolean deleteDeck(DeckFile deckFile) {
+        if (deckFile == null) {
+            return false;
+        }
+
+        ensureHeaderExists(DECKS_FILE_PATH, DECKS_HEADER);
+        ensureHeaderExists(FLASHCARDS_FILE_PATH, FLASHCARDS_HEADER);
+
+        try {
+            if (!Files.exists(DECKS_FILE_PATH)) {
+                return false;
+            }
+
+            List<String> lines = Files.readAllLines(DECKS_FILE_PATH);
+            if (lines.isEmpty()) {
+                return false;
+            }
+
+            List<String> updatedLines = new ArrayList<>();
+            updatedLines.add(DECKS_HEADER);
+
+            boolean deleted = false;
+            int targetDeckID = deckFile.getDeckID();
+
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i).trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                DeckFile currentDeck;
+                try {
+                    currentDeck = DeckFile.fromFileString(line);
+                } catch (IllegalArgumentException ex) {
+                    updatedLines.add(line);
+                    continue;
+                }
+
+                if (currentDeck.getDeckID() == targetDeckID) {
+                    deleted = true;
+                    continue;
+                }
+
+                updatedLines.add(line);
+            }
+
+            if (!deleted) {
+                return false;
+            }
+
+            Files.write(
+                    DECKS_FILE_PATH,
+                    updatedLines,
+                    StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.WRITE
+            );
+
+            deleteFlashcardsByDeckID(targetDeckID);
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateDeck(DeckFile updatedDeck) {
+        if (updatedDeck == null) {
+            return false;
+        }
+
+        ensureHeaderExists(DECKS_FILE_PATH, DECKS_HEADER);
+        ensureHeaderExists(FLASHCARDS_FILE_PATH, FLASHCARDS_HEADER);
+
+        try {
+            if (!Files.exists(DECKS_FILE_PATH)) {
+                return false;
+            }
+
+            List<String> lines = Files.readAllLines(DECKS_FILE_PATH);
+            if (lines.isEmpty()) {
+                return false;
+            }
+
+            List<String> updatedLines = new ArrayList<>();
+            updatedLines.add(DECKS_HEADER);
+
+            boolean deckUpdated = false;
+            int targetDeckID = updatedDeck.getDeckID();
+
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i).trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                DeckFile currentDeck;
+                try {
+                    currentDeck = DeckFile.fromFileString(line);
+                } catch (IllegalArgumentException ex) {
+                    updatedLines.add(line);
+                    continue;
+                }
+
+                if (currentDeck.getDeckID() == targetDeckID) {
+                    updatedLines.add(updatedDeck.toFileString());
+                    deckUpdated = true;
+                    continue;
+                }
+
+                updatedLines.add(line);
+            }
+
+            if (!deckUpdated) {
+                return false;
+            }
+
+            Files.write(
+                    DECKS_FILE_PATH,
+                    updatedLines,
+                    StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.WRITE
+            );
+
+            String updatedDeckName = updatedDeck.getDeckName() == null ? "" : updatedDeck.getDeckName();
+            updateFlashcardsDeckName(targetDeckID, updatedDeckName);
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void clearFile() {
         writeHeaderOnly(DECKS_FILE_PATH, DECKS_HEADER);
     }
@@ -221,6 +355,129 @@ public class DataAccessLayer {
     
             return deleted;
     
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean deleteFlashcardsByDeckID(int deckID) {
+        ensureHeaderExists(FLASHCARDS_FILE_PATH, FLASHCARDS_HEADER);
+
+        try {
+            if (!Files.exists(FLASHCARDS_FILE_PATH)) {
+                return false;
+            }
+
+            List<String> lines = Files.readAllLines(FLASHCARDS_FILE_PATH);
+            if (lines.isEmpty()) {
+                return false;
+            }
+
+            List<String> updatedLines = new ArrayList<>();
+            updatedLines.add(FLASHCARDS_HEADER);
+
+            boolean deleted = false;
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i).trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                FlashcardFile flashcard;
+                try {
+                    flashcard = FlashcardFile.fromFileString(line);
+                } catch (IllegalArgumentException ex) {
+                    updatedLines.add(line);
+                    continue;
+                }
+
+                if (flashcard.getDeckID() == deckID) {
+                    deleted = true;
+                    continue;
+                }
+
+                updatedLines.add(line);
+            }
+
+            if (deleted) {
+                Files.write(
+                        FLASHCARDS_FILE_PATH,
+                        updatedLines,
+                        StandardOpenOption.TRUNCATE_EXISTING,
+                        StandardOpenOption.WRITE
+                );
+            }
+            return deleted;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean updateFlashcardsDeckName(int deckID, String deckName) {
+        ensureHeaderExists(FLASHCARDS_FILE_PATH, FLASHCARDS_HEADER);
+
+        try {
+            if (!Files.exists(FLASHCARDS_FILE_PATH)) {
+                return false;
+            }
+
+            List<String> lines = Files.readAllLines(FLASHCARDS_FILE_PATH);
+            if (lines.isEmpty()) {
+                return false;
+            }
+
+            List<String> updatedLines = new ArrayList<>();
+            updatedLines.add(FLASHCARDS_HEADER);
+
+            boolean updated = false;
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i).trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                FlashcardFile flashcard;
+                try {
+                    flashcard = FlashcardFile.fromFileString(line);
+                } catch (IllegalArgumentException ex) {
+                    updatedLines.add(line);
+                    continue;
+                }
+
+                if (flashcard.getDeckID() == deckID) {
+                    FlashcardFile updatedFlashcard = new FlashcardFile(
+                            flashcard.getFlashcardID(),
+                            flashcard.getDeckID(),
+                            deckName,
+                            flashcard.getFrontText(),
+                            flashcard.getBackText(),
+                            flashcard.getStatus(),
+                            flashcard.getCreationDate(),
+                            flashcard.getLastReviewDate()
+                    );
+                    if (!line.equals(updatedFlashcard.toFileString())) {
+                        updated = true;
+                    }
+                    updatedLines.add(updatedFlashcard.toFileString());
+                    continue;
+                }
+
+                updatedLines.add(line);
+            }
+
+            if (updated) {
+                Files.write(
+                        FLASHCARDS_FILE_PATH,
+                        updatedLines,
+                        StandardOpenOption.TRUNCATE_EXISTING,
+                        StandardOpenOption.WRITE
+                );
+            }
+            return updated;
+
         } catch (IOException e) {
             e.printStackTrace();
             return false;
