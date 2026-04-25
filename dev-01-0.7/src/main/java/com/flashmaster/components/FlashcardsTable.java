@@ -23,6 +23,9 @@ public class FlashcardsTable extends VBox {
 
     private Consumer<FlashcardFile> onFlashcardSelected;
 
+    private Consumer<FlashcardFile> onFlashcardDoubleClicked;
+
+
     public FlashcardsTable(String titleText) {
         getStyleClass().add("decks-table-container");
         setSpacing(16);
@@ -39,6 +42,22 @@ public class FlashcardsTable extends VBox {
             if (onFlashcardSelected != null) {
                 onFlashcardSelected.accept(newSelection);
             }
+        });
+
+        table.setRowFactory(tv -> {
+            javafx.scene.control.TableRow<FlashcardFile> row = new javafx.scene.control.TableRow<>();
+
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    FlashcardFile clickedFlashcard = row.getItem();
+
+                    if (onFlashcardDoubleClicked != null) {
+                        onFlashcardDoubleClicked.accept(clickedFlashcard);
+                    }
+                }
+            });
+
+            return row;
         });
 
         TableColumn<FlashcardFile, String> deckNameCol = new TableColumn<>("Deck Name");
@@ -129,6 +148,10 @@ public class FlashcardsTable extends VBox {
 
     public void setOnFlashcardSelected(Consumer<FlashcardFile> onFlashcardSelected) {
         this.onFlashcardSelected = onFlashcardSelected;
+    }
+
+    public void setOnFlashcardDoubleClicked(Consumer<FlashcardFile> handler) {
+        this.onFlashcardDoubleClicked = handler;
     }
 
     public FlashcardFile getSelectedFlashcard() {

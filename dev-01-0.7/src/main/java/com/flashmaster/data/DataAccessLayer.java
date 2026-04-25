@@ -483,4 +483,68 @@ public class DataAccessLayer {
             return false;
         }
     }
+    public boolean updateFlashcard(FlashcardFile updatedFlashcard) {
+        if (updatedFlashcard == null) {
+            return false;
+        }
+
+        ensureHeaderExists(FLASHCARDS_FILE_PATH, FLASHCARDS_HEADER);
+
+        try {
+            if (!Files.exists(FLASHCARDS_FILE_PATH)) {
+                return false;
+            }
+
+            List<String> lines = Files.readAllLines(FLASHCARDS_FILE_PATH);
+            if (lines.isEmpty()) {
+                return false;
+            }
+
+            List<String> updatedLines = new ArrayList<>();
+            updatedLines.add(FLASHCARDS_HEADER);
+
+            boolean flashcardUpdated = false;
+            int targetFlashcardID = updatedFlashcard.getFlashcardID();
+
+            for (int i = 1; i < lines.size(); i++) {
+                String line = lines.get(i).trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                FlashcardFile currentFlashcard;
+                try {
+                    currentFlashcard = FlashcardFile.fromFileString(line);
+                } catch (IllegalArgumentException ex) {
+                    updatedLines.add(line);
+                    continue;
+                }
+
+                if (currentFlashcard.getFlashcardID() == targetFlashcardID) {
+                    updatedLines.add(updatedFlashcard.toFileString());
+                    flashcardUpdated = true;
+                    continue;
+                }
+
+                updatedLines.add(line);
+            }
+
+            if (!flashcardUpdated) {
+                return false;
+            }
+
+            Files.write(
+                    FLASHCARDS_FILE_PATH,
+                    updatedLines,
+                    StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.WRITE
+            );
+
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
