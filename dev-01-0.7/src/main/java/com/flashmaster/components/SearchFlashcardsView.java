@@ -63,6 +63,9 @@ public class SearchFlashcardsView extends VBox {
         content.setAlignment(Pos.TOP_LEFT);
         content.setSpacing(16);
         content.setPadding(new Insets(24));
+        content.setFillWidth(true);
+        content.setMinWidth(0);
+        content.setMaxWidth(Double.MAX_VALUE);
 
         Button backButton = new Button("Back");
         backButton.getStyleClass().add("secondary-button");
@@ -266,16 +269,25 @@ public class SearchFlashcardsView extends VBox {
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.viewportBoundsProperty().addListener((obs, oldBounds, newBounds) ->
+                content.setPrefWidth(Math.max(0, newBounds.getWidth()))
+        );
 
         getChildren().add(scrollPane);
-        VBox.setVgrow(scrollPane, Priority.ALWAYS);}
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+    }
 
     private void reloadFlashcards() {
         if (dataAccessLayer == null) {
             allFlashcards = new ArrayList<>();
             return;
         }
-        allFlashcards = new ArrayList<>(dataAccessLayer.getAllFlashcardFiles());
+        allFlashcards = new ArrayList<>();
+        for (FlashcardFile flashcard : dataAccessLayer.getAllFlashcardFiles()) {
+            if (flashcard != null) {
+                allFlashcards.add(flashcard);
+            }
+        }
         allFlashcards.sort((a, b) -> {
             LocalDate dateA = a == null ? null : a.getCreationDate();
             LocalDate dateB = b == null ? null : b.getCreationDate();
@@ -296,6 +308,9 @@ public class SearchFlashcardsView extends VBox {
         String query = normalize(searchField.getText());
         List<FlashcardFile> filtered = new ArrayList<>();
         for (FlashcardFile flashcard : allFlashcards) {
+            if (flashcard == null) {
+                continue;
+            }
             if (matchesQuery(flashcard, query)) {
                 filtered.add(flashcard);
             }
@@ -322,6 +337,7 @@ public class SearchFlashcardsView extends VBox {
         confirmAlert.setContentText(
                 "Deck: " + safe(selectedFlashcard.getDeckName())
                         + "\nFront: " + safe(selectedFlashcard.getFrontText())
+                        + "\nBack: " + safe(selectedFlashcard.getBackText())
                         + "\n\nThis action cannot be undone."
         );
 

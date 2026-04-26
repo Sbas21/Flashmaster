@@ -1,6 +1,6 @@
 Flashcard ID|Deck ID|Deck Name|Front Text|Back Text|Status|Creation Date|Last Review Date
 2|3|CS146|Merge Sort Time Complexity|O(nlgn)|New|2026-03-27|2026-03-27
-3|1|CS151|Paradigm|testing ...|New|2026-04-11|2026-04-11
-4|2|CS158|Total Function\nFunction|abcdefg\nqwer123|New|2026-04-11|2026-04-11
-5|1|CS151|aaaaa|abcd|Learning|2026-04-25|2026-04-25
+4|2|CS158A|Receiving Window|Set of frames receiver can accept|New|2026-04-11|2026-04-11
 6|3|CS146|Big O|O(log n)|New|2026-04-25|2026-04-25
+7|2|CS158A|CSMA|Carrier Sense Multiple Access|New|2026-04-25|2026-04-25
+8|2|CS158A|MAC|Medium Access Layer|New|2026-04-25|2026-04-25

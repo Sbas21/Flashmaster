@@ -29,13 +29,17 @@ public class FlashcardsTable extends VBox {
     public FlashcardsTable(String titleText) {
         getStyleClass().add("decks-table-container");
         setSpacing(16);
+        setMinWidth(0);
+        setMaxWidth(Double.MAX_VALUE);
 
         Label title = new Label(titleText == null ? "All Flashcards" : titleText);
         title.getStyleClass().add("section-title");
 
         table = new TableView<>();
         table.getStyleClass().add("decks-table");
-        table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        table.setMinWidth(0);
+        table.setMaxWidth(Double.MAX_VALUE);
         table.setPlaceholder(new Label("No flashcards found."));
 
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -66,7 +70,8 @@ public class FlashcardsTable extends VBox {
             String value = flashcard == null ? "" : flashcard.getDeckName();
             return new SimpleStringProperty(value == null ? "" : value);
         });
-        deckNameCol.setMinWidth(140);
+        deckNameCol.setMinWidth(90);
+        deckNameCol.setPrefWidth(130);
 
         TableColumn<FlashcardFile, String> frontTextCol = new TableColumn<>("Front Text");
         frontTextCol.setCellValueFactory(cell -> {
@@ -74,7 +79,8 @@ public class FlashcardsTable extends VBox {
             String value = flashcard == null ? "" : firstLine(flashcard.getFrontText());
             return new SimpleStringProperty(value == null ? "" : value);
         });
-        frontTextCol.setMinWidth(220);
+        frontTextCol.setMinWidth(120);
+        frontTextCol.setPrefWidth(220);
 
         TableColumn<FlashcardFile, String> backTextCol = new TableColumn<>("Back Text");
         backTextCol.setCellValueFactory(cell -> {
@@ -82,7 +88,8 @@ public class FlashcardsTable extends VBox {
             String value = flashcard == null ? "" : firstLine(flashcard.getBackText());
             return new SimpleStringProperty(value == null ? "" : value);
         });
-        backTextCol.setMinWidth(220);
+        backTextCol.setMinWidth(120);
+        backTextCol.setPrefWidth(220);
 
         TableColumn<FlashcardFile, String> statusCol = new TableColumn<>("Status");
         statusCol.setCellValueFactory(cell -> {
@@ -90,7 +97,8 @@ public class FlashcardsTable extends VBox {
             String value = flashcard == null ? "" : flashcard.getStatus();
             return new SimpleStringProperty(value == null ? "" : value);
         });
-        statusCol.setMinWidth(120);
+        statusCol.setMinWidth(90);
+        statusCol.setPrefWidth(120);
 
         creationDateCol = new TableColumn<>("Creation Date");
         creationDateCol.setCellValueFactory(cell -> {
@@ -118,7 +126,8 @@ public class FlashcardsTable extends VBox {
             LocalDate value = flashcard == null ? null : flashcard.getCreationDate();
             return new SimpleStringProperty(value == null ? "" : value.toString());
         });
-        creationDateTextCol.setMinWidth(140);
+        creationDateTextCol.setMinWidth(110);
+        creationDateTextCol.setPrefWidth(140);
 
         TableColumn<FlashcardFile, String> lastReviewDateCol = new TableColumn<>("Last Review Date");
         lastReviewDateCol.setCellValueFactory(cell -> {
@@ -126,7 +135,8 @@ public class FlashcardsTable extends VBox {
             LocalDate value = flashcard == null ? null : flashcard.getLastReviewDate();
             return new SimpleStringProperty(value == null ? "" : value.toString());
         });
-        lastReviewDateCol.setMinWidth(140);
+        lastReviewDateCol.setMinWidth(110);
+        lastReviewDateCol.setPrefWidth(140);
 
         table.getColumns().addAll(
                 deckNameCol,
