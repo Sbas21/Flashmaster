@@ -2,8 +2,11 @@ package com.flashmaster.components;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -11,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 
 import com.flashmaster.data.DataAccessLayer;
+import com.flashmaster.data.DeckFile;
 import com.flashmaster.data.FlashcardFile;
 
 import javafx.geometry.Insets;
@@ -36,8 +40,9 @@ public class SearchFlashcardsView extends VBox {
     private final Label frontTextError;
     private final Label backTextError;
     private final Label statusError;
+    private Map<String, DeckFile> deckLookup;
 
-    private final TextField deckNameField;
+    private final ComboBox<String> deckNameField;
     private final ComboBox<String> statusField;
     private final TextField creationDateField;
     private final TextField lastReviewDateField;
@@ -56,6 +61,7 @@ public class SearchFlashcardsView extends VBox {
         this.filteredFlashcards = new ArrayList<>();
         this.selectedFlashcard = null;
         this.editingFlashcard = null;
+        this.deckLookup = loadDeckLookup(dataAccessLayer);
 
         getStyleClass().add("content-page");
 
@@ -141,9 +147,12 @@ public class SearchFlashcardsView extends VBox {
         Label deckNameLabel = new Label("Deck Name *");
         deckNameLabel.getStyleClass().add("form-label");
 
-        deckNameField = new TextField();
+        deckNameField = new ComboBox<>();
         deckNameField.getStyleClass().add("form-input");
-        deckNameField.setPromptText("e.g., CS151");
+        deckNameField.setPromptText("Select deck");
+        deckNameField.setItems(FXCollections.observableArrayList(deckLookup.keySet()));
+        deckNameField.setMaxWidth(Double.MAX_VALUE);
+        deckNameField.setDisable(true);
 
         deckNameError = createErrorLabel();
 
@@ -226,8 +235,8 @@ public class SearchFlashcardsView extends VBox {
         searchField.textProperty().addListener((obs, oldValue, newValue) -> applyCurrentFilter());
         searchField.setOnAction(event -> applyCurrentFilter());
 
-        deckNameField.textProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue != null && !newValue.trim().isEmpty()) {
+        deckNameField.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue != null && !newValue.isBlank()) {
                 clearError(deckNameError);
                 clearControlError(deckNameField);
             }
@@ -389,7 +398,9 @@ public class SearchFlashcardsView extends VBox {
         selectedFlashcard = flashcard;
         deleteButton.setDisable(false);
 
-        deckNameField.setText(safe(flashcard.getDeckName()));
+        refreshDeckLookup();
+        deckNameField.setItems(FXCollections.observableArrayList(deckLookup.keySet()));
+        deckNameField.setValue(safe(flashcard.getDeckName()));
         frontTextArea.setText(safe(flashcard.getFrontText()));
         backTextArea.setText(safe(flashcard.getBackText()));
         statusField.setValue(safe(flashcard.getStatus()));
@@ -411,13 +422,14 @@ public class SearchFlashcardsView extends VBox {
         clearError(statusError);
         clearControlError(statusField);
 
+        deckNameField.setDisable(false);
         statusField.setDisable(false);
         storeButton.setDisable(false);
     }
     private void clearEditForm() {
         editingFlashcard = null;
 
-        deckNameField.clear();
+        deckNameField.setValue(null);
         frontTextArea.clear();
         backTextArea.clear();
         statusField.setValue(null);
@@ -426,6 +438,8 @@ public class SearchFlashcardsView extends VBox {
 
         editHint.setText("Select a row, then double-click it to edit.");
         storeButton.setDisable(true);
+        deckNameField.setDisable(true);
+        statusField.setDisable(true);
 
         clearError(deckNameError);
         clearError(frontTextError);
@@ -441,7 +455,7 @@ public class SearchFlashcardsView extends VBox {
             return;
         }
 
-        String deckName = trimValue(deckNameField.getText());
+        String selectedDeckName = deckNameField.getValue();
         String frontText = trimValue(frontTextArea.getText());
         String backText = trimValue(backTextArea.getText());
         String status = statusField.getValue() == null ? "" : statusField.getValue().trim();
@@ -456,8 +470,9 @@ public class SearchFlashcardsView extends VBox {
 
         boolean hasError = false;
 
-        if (deckName.isEmpty()) {
-            showError(deckNameError, "Deck Name is required.");
+        DeckFile selectedDeck = selectedDeckName == null ? null : deckLookup.get(selectedDeckName);
+        if (selectedDeck == null) {
+            showError(deckNameError, "Deck is required.");
             markControlError(deckNameField);
             hasError = true;
         }
@@ -486,8 +501,8 @@ public class SearchFlashcardsView extends VBox {
 
         FlashcardFile updatedFlashcard = new FlashcardFile(
                 editingFlashcard.getFlashcardID(),
-                editingFlashcard.getDeckID(),
-                deckName,
+                selectedDeck.getDeckID(),
+                selectedDeck.getDeckName(),
                 frontText,
                 backText,
                 status,
@@ -526,6 +541,31 @@ public class SearchFlashcardsView extends VBox {
         error.setVisible(false);
         error.setManaged(false);
         return error;
+    }
+
+    private static Map<String, DeckFile> loadDeckLookup(DataAccessLayer dataAccessLayer) {
+        Map<String, DeckFile> lookup = new LinkedHashMap<>();
+        if (dataAccessLayer == null) {
+            return lookup;
+        }
+
+        List<DeckFile> decks = dataAccessLayer.getAllDeckFiles();
+        decks.sort(Comparator.comparing(deck -> {
+            String deckName = deck.getDeckName();
+            return deckName == null ? "" : deckName.trim().toLowerCase(Locale.ROOT);
+        }));
+
+        for (DeckFile deck : decks) {
+            String deckName = deck.getDeckName();
+            if (deckName != null && !deckName.isBlank()) {
+                lookup.put(deckName, deck);
+            }
+        }
+        return lookup;
+    }
+
+    private void refreshDeckLookup() {
+        deckLookup = loadDeckLookup(dataAccessLayer);
     }
 
     private static void showError(Label errorLabel, String message) {
