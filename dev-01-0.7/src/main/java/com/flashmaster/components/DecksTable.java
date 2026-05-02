@@ -25,6 +25,7 @@ public class DecksTable extends VBox {
     private final TableView<DeckFile> table;
     private final TableColumn<DeckFile, String> nameCol;
     private Consumer<DeckFile> onDeckSelected;
+    private Consumer<DeckFile> onDeckClicked;
     private Consumer<DeckFile> onDeckDoubleClicked;
 
     public DecksTable(String titleText) {
@@ -48,10 +49,13 @@ public class DecksTable extends VBox {
         table.setRowFactory(tableView -> {
             TableRow<DeckFile> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getButton() == MouseButton.PRIMARY
-                        && event.getClickCount() == 2
-                        && !row.isEmpty()
-                        && onDeckDoubleClicked != null) {
+                if (event.getButton() != MouseButton.PRIMARY || row.isEmpty()) {
+                    return;
+                }
+                if (event.getClickCount() == 1 && onDeckClicked != null) {
+                    onDeckClicked.accept(row.getItem());
+                }
+                if (event.getClickCount() == 2 && onDeckDoubleClicked != null) {
                     onDeckDoubleClicked.accept(row.getItem());
                 }
             });
@@ -118,6 +122,10 @@ public class DecksTable extends VBox {
 
     public void setOnDeckSelected(Consumer<DeckFile> onDeckSelected) {
         this.onDeckSelected = onDeckSelected;
+    }
+
+    public void setOnDeckClicked(Consumer<DeckFile> onDeckClicked) {
+        this.onDeckClicked = onDeckClicked;
     }
 
     public void setOnDeckDoubleClicked(Consumer<DeckFile> onDeckDoubleClicked) {

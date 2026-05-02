@@ -2,6 +2,7 @@ package com.flashmaster;
 
 import com.flashmaster.components.AppHeader;
 import com.flashmaster.components.AppSidebar;
+import com.flashmaster.components.DeckReviewView;
 import com.flashmaster.components.DecksTable;
 import com.flashmaster.components.DefineDeckView;
 import com.flashmaster.components.DefineFlashcardsView;
@@ -9,9 +10,11 @@ import com.flashmaster.components.ListDecksView;
 import com.flashmaster.components.ListFlashcardsView;
 import com.flashmaster.components.ManageDecksView;
 import com.flashmaster.components.ManageFlashcardsView;
+import com.flashmaster.components.ReviewDecksView;
 import com.flashmaster.components.SearchFlashcardsView;
 import com.flashmaster.components.SummaryStats;
 import com.flashmaster.data.DataAccessLayer;
+import com.flashmaster.data.DeckFile;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
@@ -68,6 +71,9 @@ public class MainLayout extends VBox {
             case "Manage Decks":
                 newContent = new ManageDecksView(this::navigateHome, this::openDefineDeck);
                 break;
+            case "Review":
+                newContent = new ReviewDecksView(dataAccessLayer, this::navigateHome, this::openReviewDeck);
+                break;
             case "Manage Flashcards":
                 newContent = new ManageFlashcardsView(this::navigateHome, this::openDefineFlashcards);
                 break;
@@ -123,5 +129,22 @@ public class MainLayout extends VBox {
     private void navigateBackToManageFlashcards() {
         sidebar.setActiveByLabel("Manage Flashcards");
         showContent("Manage Flashcards");
+    }
+
+    private void openReviewDeck(DeckFile deck) {
+        if (deck == null) {
+            return;
+        }
+
+        centerArea.getChildren().remove(contentArea);
+
+        contentArea = new DeckReviewView(dataAccessLayer, deck, this::navigateBackToReview);
+        HBox.setHgrow(contentArea, Priority.ALWAYS);
+        centerArea.getChildren().add(contentArea);
+    }
+
+    private void navigateBackToReview() {
+        sidebar.setActiveByLabel("Review");
+        showContent("Review");
     }
 }
