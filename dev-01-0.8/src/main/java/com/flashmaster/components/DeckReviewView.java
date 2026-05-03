@@ -144,6 +144,10 @@ public class DeckReviewView extends VBox {
         saveButton.getStyleClass().add("primary-button");
         saveButton.setOnAction(event -> saveChanges());
 
+        frontTextArea.textProperty().addListener((obs, oldValue, newValue) -> updateSaveButtonState());
+        backTextArea.textProperty().addListener((obs, oldValue, newValue) -> updateSaveButtonState());
+        statusField.valueProperty().addListener((obs, oldValue, newValue) -> updateSaveButtonState());
+
         HBox actions = new HBox(10, previousButton, nextButton, saveButton);
         actions.setAlignment(Pos.CENTER_LEFT);
 
@@ -285,12 +289,37 @@ public class DeckReviewView extends VBox {
         setCardFieldsDisabled(false);
         previousButton.setDisable(currentIndex <= 0);
         nextButton.setDisable(currentIndex >= filteredDraftCards.size() - 1);
-        saveButton.setDisable(dataAccessLayer == null || allDraftCards.isEmpty());
+        saveButton.setDisable(!hasAnyChanges()|| dataAccessLayer == null || allDraftCards.isEmpty());
 
         cardPositionLabel.setText("Flashcard " + (currentIndex + 1) + " of " + filteredDraftCards.size());
         emptyStateLabel.setVisible(false);
         emptyStateLabel.setManaged(false);
     }
+    private boolean hasAnyChanges() {
+        for (ReviewCardDraft card : allDraftCards) {
+            if (card.hasFieldChanges()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void updateSaveButtonState() {
+        boolean hasChanges = false;
+
+        if (currentIndex >= 0 && currentIndex < filteredDraftCards.size()) {
+            ReviewCardDraft card = filteredDraftCards.get(currentIndex);
+
+            hasChanges =
+                    !trim(frontTextArea.getText()).equals(trim(card.originalFrontText))
+                            || !trim(backTextArea.getText()).equals(trim(card.originalBackText))
+                            || !normalize(statusField.getValue()).equals(normalize(card.originalStatus));
+        }
+
+        saveButton.setDisable(dataAccessLayer == null || allDraftCards.isEmpty() || !hasChanges);
+    }
+
+
 
     private void showNoCardState() {
         frontTextArea.clear();
@@ -302,7 +331,7 @@ public class DeckReviewView extends VBox {
         setCardFieldsDisabled(true);
         previousButton.setDisable(true);
         nextButton.setDisable(true);
-        saveButton.setDisable(dataAccessLayer == null || allDraftCards.isEmpty());
+        saveButton.setDisable(!hasAnyChanges()|| dataAccessLayer == null || allDraftCards.isEmpty());
 
         cardPositionLabel.setText("No flashcards available for this filter.");
         emptyStateLabel.setText("Try another filter value.");
