@@ -1,5 +1,12 @@
 # Name of application: FlashMaster
 
+# Version 0.8
+Who did What:
+1. Sebastian Lim: Review Flashcard Implementation
+2. Shiva Anne: 
+3. Isabelle Li:
+
+
 # Version 0.7
 Who did What:
 1. Sebastian Lim: Edit Deck
