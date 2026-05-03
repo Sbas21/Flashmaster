@@ -3,7 +3,7 @@
 # Version 0.8
 Who did What:
 1. Sebastian Lim: Review Flashcard Implementation
-2. Shiva Anne: 
+2. Shiva Anne: Final Overview
 3. Isabelle Li:
 
 
