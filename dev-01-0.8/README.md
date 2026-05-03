@@ -4,7 +4,7 @@
 Who did What:
 1. Sebastian Lim: Review Flashcard Implementation
 2. Shiva Anne: Final Overview
-3. Isabelle Li:
+3. Isabelle Li: Fixed Save Button
 
 
 # Version 0.7
