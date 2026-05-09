@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataAccessLayer {
+    private static DataAccessLayer instance;
 
     private static final String DATA_FOLDER = "data";
     private static final Path DATA_DIRECTORY = Paths.get(DATA_FOLDER);
@@ -19,10 +20,17 @@ public class DataAccessLayer {
     private static final String FLASHCARDS_HEADER =
             "Flashcard ID|Deck ID|Deck Name|Front Text|Back Text|Status|Creation Date|Last Review Date";
 
-    public DataAccessLayer() {
+    private DataAccessLayer() {
         initializeFiles();
     }
 
+    public static DataAccessLayer getInstance() {
+        if (instance == null) {
+            instance = new DataAccessLayer();
+        }
+        return instance;
+    }
+    
     private void initializeFiles() {
         try {
             Files.createDirectories(DATA_DIRECTORY);

@@ -31,7 +31,7 @@ public class MainLayout extends VBox {
     public MainLayout() {
         getStyleClass().add("main-card");
         // Shared data layer
-        dataAccessLayer = new DataAccessLayer();
+        dataAccessLayer = DataAccessLayer.getInstance();
 
         // Top header
         AppHeader header = new AppHeader();
